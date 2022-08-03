@@ -6,11 +6,11 @@ from odoo import models, fields, api
 class MrpEco(models.Model):
     _inherit = 'mrp.eco'
 
-    stage_name = fields.Char(related="stage_id.name")
+    rejected_stage = fields.Boolean(related="stage_id.rejected_stage")
 
     def action_recject_eco(self):
         eco_stage_id=self.env['mrp.eco.stage'].search([
-            ('name','=','rejected'),
+            ('rejected_stage','=',True),
             ('type_ids', 'in', self.type_id.id)], limit=1)
         eco_stage_id.with_context(eco_id=self)._compute_is_blocking()
         self._compute_allow_change_stage()
