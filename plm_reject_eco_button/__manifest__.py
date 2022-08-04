@@ -4,8 +4,7 @@
 {
     "name": "Plm Reject Eco Button",
     "summary": """
-        Short (1 phrase/line) summary of the module"s purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Module adds reject stage in ECO""",
     "version": "15.0.1.0.0",
     "category": "Uncategorized",
     "website": "http://sodexis.com/",
@@ -17,6 +16,7 @@
         'mrp_plm',
     ],
     "data": [
+        "data/mrp_data.xml",
         "views/mrp_eco_views.xml",
     ],
 }
