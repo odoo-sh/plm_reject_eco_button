@@ -3,3 +3,4 @@
 
 from . import mrp_eco
 from . import mrp_eco_stage
+from . import res_config_settings

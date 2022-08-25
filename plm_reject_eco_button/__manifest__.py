@@ -13,10 +13,12 @@
     "installable": True,
     "application": False,
     "depends": [
+        'base',
         'mrp_plm',
     ],
     "data": [
         "data/mrp_data.xml",
         "views/mrp_eco_views.xml",
+        "views/res_config_settings_views.xml"
     ],
 }

@@ -7,6 +7,7 @@ class MrpEco(models.Model):
     _inherit = 'mrp.eco'
 
     rejected_stage = fields.Boolean(related="stage_id.rejected_stage")
+    reject_eco = fields.Boolean(compute="_compute_reject_eco")
 
     def action_recject_eco(self):
         eco_stage_id=self.env['mrp.eco.stage'].search([
@@ -22,6 +23,18 @@ class MrpEco(models.Model):
         for rec in self:
             if rec._context.get('reject_eco', False):
                 rec.allow_change_stage= True
+
+    @api.depends('stage_id','state','kanban_state')
+    def _compute_reject_eco(self):
+        for rec in self:
+            rec.reject_eco=False
+            reject_eco=self.env['ir.config_parameter'].sudo().get_param('plm_reject_eco_button.reject_eco',default=False)
+            if reject_eco:
+                rec.reject_eco=True
+            elif rec.stage_id.approval_template_ids and not reject_eco:
+                rec.reject_eco=True
+
+
 
 class MrpEcoStage(models.Model):
     _inherit = 'mrp.eco.stage'
