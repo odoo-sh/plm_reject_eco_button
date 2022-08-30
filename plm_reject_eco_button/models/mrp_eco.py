@@ -31,7 +31,7 @@ class MrpEco(models.Model):
             reject_eco=self.env['ir.config_parameter'].sudo().get_param('plm_reject_eco_button.reject_eco',default=False)
             if reject_eco:
                 rec.reject_eco=True
-            elif rec.stage_id.approval_template_ids and not reject_eco:
+            elif rec.stage_id.approval_template_ids and not reject_eco and self.env.user in rec.stage_id.approval_template_ids.mapped('user_ids'):
                 rec.reject_eco=True
 
 
