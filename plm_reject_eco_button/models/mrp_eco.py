@@ -34,6 +34,11 @@ class MrpEco(models.Model):
             elif rec.stage_id.approval_template_ids and not reject_eco and self.env.user in rec.stage_id.approval_template_ids.mapped('user_ids'):
                 rec.reject_eco=True
 
+    def _compute_user_approval(self):
+        super()._compute_user_approval()
+        for eco in self:
+            if eco.state == 'confirmed':
+                eco.user_can_approve = False
 
 
 class MrpEcoStage(models.Model):
